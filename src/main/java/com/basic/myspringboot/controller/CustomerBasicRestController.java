@@ -55,7 +55,17 @@ public class CustomerBasicRestController {
         customerRepository.delete(customer);
         return ResponseEntity.ok(email + "을 가진 Customer가 삭제되었습니다.");
     }
-
+    @PutMapping("/{id}")
+    public Customer updateCustomer(@PathVariable Long id, @RequestBody Customer customerDetail) {
+        Customer customer = customerRepository.findById(id)
+                .orElseThrow(() -> new BusinessException("User Not Found", HttpStatus.NOT_FOUND));
+        // 수정하려는 값을 저장
+        customer.setName(customerDetail.getName());
+        customer.setEmail(customerDetail.getEmail());
+        customer.setAge(customerDetail.getAge());
+        Customer updateCustomer = customerRepository.save(customer);
+        return updateCustomer;
+    }
 
 
 }
