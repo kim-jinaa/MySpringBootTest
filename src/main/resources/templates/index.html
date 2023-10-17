@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<meta charset="UTF-8">
+<body>
+<table border="1">
+    <tr>
+        <th>Seq</th>
+        <th>Name</th>
+        <th>Age</th>
+        <th>Email</th>
+        <th>Date</th>
+        <th>Edit</th>
+        <th>Delete</th>
+    </tr>
+    <tr th:each="customer, customerStat : ${customer}"> <!-- UserResDTO -->
+        <td th:text="${customerStat.count}"></td> <!-- .count-> 1부터 시작 / .index-> 0부터 시작 -->
+        <td th:text="${customer.name}"></td>
+        <td th:text="${customer.age}"></td>
+        <td th:text="${customer.email}"></td>
+        <td th:text="${#temporals.format(customer.entryDate,'yyyy-MM-dd hh:mm')}"></td>
+        <td><a th:href="@{/customerpage/edit/{id}(id=${customer.id})}">update</a></td>
+        <td><a th:href="@{/customerpage/delete/{id}(id=${customer.id})}">delete</a></td>
+
+    </tr>
+</table>
+<p><a href="/customerpage/signup">Insert</a></p>
+</body>
+</html>

@@ -75,5 +75,12 @@ public class CustomerService {
         customerRepository.delete(customer);
     }
 
+    public void updateCustomerForm(CustomerReqDTO customerReqDTO){
+        Customer existCustomer = customerRepository.findById(customerReqDTO.getId())
+                .orElseThrow(() ->
+                        new BusinessException(customerReqDTO.getId() + " User Not Found", HttpStatus.NOT_FOUND));
+        existCustomer.setName(customerReqDTO.getName());
+        existCustomer.setAge(customerReqDTO.getAge());
+    }
 
 }
